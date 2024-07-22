@@ -1,2 +1,35 @@
-<h1>Contact#index</h1>
-<p>Find me in app/views/contact/index.html.erb</p>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-auto my-3">
+      <h2>04 : Contacto</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12 col-md-8">
+      <%= form_tag(message_index_path, method: :post) do %>
+        <div class="mb-3">
+          <%= text_field_tag(:email, nil, class: "form-control", placeholder: "Correo", required: true )%>
+        </div>
+        <div class="mb-3">
+          <%= text_field_tag(:subject, nil, class: "form-control", placeholder: "Asunto", required: true) %>
+        </div>
+        <div class="mb-3">
+          <%= text_area_tag(:message, nil, class: "form-control", rows: 6, placeholder: "Escriba su mensaje", required: true) %>
+        </div>
+        <%= submit_tag("Enviar", class: "btn btn-primary") %>
+      <% end %>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <div class="contact-info mt-4">
+        <p><i class="bi bi-telephone"></i> <%= @profile.profile_phone %></p>
+        <p><i class="bi bi-envelope"></i> <%= @profile.profile_email %></p>
+        <h3>Visita mis redes:</h3>
+        <% @profile.social_networks.each do |social_network| %>
+          <a href="<%= social_network.social_network_url %>" title="<%= social_network.social_network_type %>"><i class="bi bi-<%= social_network.social_network_type %>" style="font-size: 1.5rem"></i></a>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

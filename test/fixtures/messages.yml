@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  message_current_profile: 1
+  message_email: MyString
+  message_subject: MyString
+  message_content: MyText
+
+two:
+  message_current_profile: 1
+  message_email: MyString
+  message_subject: MyString
+  message_content: MyText

@@ -1,30 +1,54 @@
-<div class="container">
-  <div class="row justify-content-center">
-    <div class="col-auto my-3">
-      <h2>Mis proyectos</h2>
+<div data-controller="image_modal">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-auto my-3">
+        <h2>Mis proyectos</h2>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <% @projects.each do |project| %>
+        <div class="col-auto">
+          <div class="card my-3 p-2" style="width: 18rem;">
+            <% if project.project_image.attached? %>
+              <% project_image = url_for(project.project_image) %>
+              <img src="<%= project_image %>" class="card-img-top image-link" data-bs-toggle="modal" data-bs-target="#projectImageModal" data-action="click->image_modal#load_image" data-project-image-url="<%= project_image %>">
+            <% else %>
+              <img src="<%= asset_path('project_image_placeholder.png') %>" class="card-img-top">
+            <% end %>
+            <div class="card-body">
+              <h5 class="card-title"><%= project.project_name %></h5>
+              <p class="card-text"><%= project.project_description %></p>
+              <% if project.project_demo_url.present? %>
+                <%= link_to(project.project_demo_url, class: "btn btn-primary", title: 'Ver demostración') do %>
+                  <i class="bi bi-globe-americas"></i>
+                  <span>Demo</span>
+                <% end %>
+              <% end %>
+              <% if project.project_repository_url.present?  %>
+                <%= link_to(project.project_repository_url, class: "btn btn-primary", title: 'Ver repositorio') do %>
+                  <i class="bi bi-code-slash"></i>
+                  <span>Código</span>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
 
-  <div class="row justify-content-center">
-    <% @projects.each do |project| %>
-      <% project_image = project.project_image.attached? ? url_for(project.project_image) : asset_path('project_image_placeholder.png') %>
-      <div class="col-auto">
-        <div class="card my-3 p-2" style="width: 18rem;">
-          <img src="<%= project_image %>" class="card-img-top" alt="<%= project.project_description %>">
-          <div class="card-body">
-            <h5 class="card-title"><%= project.project_name %></h5>
-            <p class="card-text"><%= project.project_description %></p>
-            <%= link_to(project.project_demo_url, class: "btn btn-primary #{'disabled' if project.project_demo_url.blank?}", title: 'Ver demostración') do %>
-              <i class="bi bi-globe-americas"></i>
-              <span>Demo</span>
-            <% end %>
-            <%= link_to(project.project_repository_url, class: "btn btn-primary #{'disabled' if project.project_repository_url.blank?}", title: 'Ver repositorio') do %>
-              <i class="bi bi-code-slash"></i>
-              <span>Código</span>
-            <% end %>
-          </div>
+  <div id="projectImageModal" class="modal fade" tabindex="-1" aria-labelledby="projectImageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="projectImageModalLabel">Imagen del Proyecto</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <a href="" data-image_modal-target="imageLink" target="_blank"><img src="" class="img-fluid" alt="Imagen del Proyecto" data-image_modal-target="imageContainer"></a>
         </div>
       </div>
-    <% end %>
+    </div>
   </div>
 </div>

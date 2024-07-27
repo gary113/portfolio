@@ -12,3 +12,6 @@ application.register("hello", HelloController)
 
 import HomeController from "./home_controller"
 application.register("home", HomeController)
+
+import ImageModalController from "./image_modal_controller"
+application.register("image_modal", ImageModalController)

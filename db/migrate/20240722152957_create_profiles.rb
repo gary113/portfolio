@@ -7,7 +7,6 @@ class CreateProfiles < ActiveRecord::Migration[7.1]
       t.string :profile_phone
       t.string :profile_greeting
       t.text :profile_home_text
-      t.text :profile_about_text
 
       t.timestamps
     end

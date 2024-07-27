@@ -1,0 +1,41 @@
+<%= form_with(model: @profile, url: @profile.new_record? ? administration_profiles_path : administration_profile_path, class: "container mt-5") do |form| %>
+  <div class="mb-3">
+    <%= form.label(:profile_picture, "Foto de perfil", class: "form-label") %>
+    <%= form.file_field(:profile_picture, class: "form-control", accept: "image/*") %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label(:profile_name, "Nombre del perfil", class: "form-label") %>
+    <%= form.text_field(:profile_name, class: "form-control", required: true) %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label(:profile_email, "Correo electrónico", class: "form-label") %>
+    <%= form.email_field(:profile_email, class: "form-control") %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label(:profile_phone, "Teléfono", class: "form-label") %>
+    <%= form.telephone_field(:profile_phone, class: "form-control") %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label(:profile_greeting, "Saludo", class: "form-label") %>
+    <%= form.text_field(:profile_greeting, class: "form-control") %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label(:profile_home_text, "Texto de inicio", class: "form-label") %>
+    <%= form.text_area(:profile_home_text, class: "form-control", rows: 6, style: "min-height: 100px;") %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label(:profile_about_text, "Texto \"Acerca de mí\"", class: "form-label") %>
+    <%= form.rich_text_area(:profile_about_text, class: "form-control", style: "min-height: 200px;") %>
+  </div>
+
+  <div class="mb-3 text-end">
+    <%= link_to("Volver", administration_profiles_path, class: "btn btn-secondary") %>
+    <%= form.submit("Guardar", class: "btn btn-primary") %>
+  </div>
+<% end %>

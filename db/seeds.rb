@@ -10,14 +10,22 @@
 
 Profile.find_or_create_by(profile_name: 'default') do |profile|
   profile.profile_status = :active
-  profile.profile_greeting = '¡Hola!'
-  profile.profile_home_text = 'Soy Gary<br>Desarrollador peruano'
-  profile.profile_about_text = '<h2>What is Lorem Ipsum?</h2>'\
+  profile.profile_greeting = Faker::Lorem.sentence(word_count: 1)
+  profile.profile_home_text = Faker::Lorem.sentence
+  profile.profile_email = 'mail@example.com'
+  profile.profile_phone = '+51999999999'
+end
+
+Profile.all.each do |profile|
+  profile_about_text = '<h2>What is Lorem Ipsum?</h2>'\
   '<p><strong>Lorem Ipsum</strong> is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>'\
   '<h2>Why do we use it?</h2>'\
   '<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>'
-  profile.profile_email = 'mail@example.com'
-  profile.profile_phone = '+51999999999'
+
+  ActionText::RichText.create!(record_type: 'Profile',
+                               record_id: profile.id,
+                               name: 'profile_about_text',
+                               body: profile_about_text)
 end
 
 SocialNetwork.find_or_create_by(profile_id: 1, social_network_type: :linkedin) do |social_network|
@@ -36,3 +44,5 @@ end
     project.project_repository_url = "https://github.com/project#{i}"
   end
 end
+
+User.create(user_name: 'admin', password: 'admin')

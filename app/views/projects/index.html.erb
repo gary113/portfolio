@@ -1,24 +1,26 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-auto my-3">
-      <h2>02 : Mis proyectos</h2>
+      <h2>Mis proyectos</h2>
     </div>
   </div>
 
   <div class="row justify-content-center">
     <% @projects.each do |project| %>
-      <% project_image = project.project_image.attached? ? project.project_image : asset_path('project_image_placeholder.png') %>
+      <% project_image = project.project_image.attached? ? url_for(project.project_image) : asset_path('project_image_placeholder.png') %>
       <div class="col-auto">
         <div class="card my-3 p-2" style="width: 18rem;">
           <img src="<%= project_image %>" class="card-img-top" alt="<%= project.project_description %>">
           <div class="card-body">
             <h5 class="card-title"><%= project.project_name %></h5>
             <p class="card-text"><%= project.project_description %></p>
-            <%= link_to(project.project_demo_url, class: 'btn btn-primary', title: 'Ver demostración') do %>
-              <i class="bi bi-eyeglasses"></i>
+            <%= link_to(project.project_demo_url, class: "btn btn-primary #{'disabled' if project.project_demo_url.blank?}", title: 'Ver demostración') do %>
+              <i class="bi bi-globe-americas"></i>
+              <span>Demo</span>
             <% end %>
-            <%= link_to(project.project_repository_url, class: 'btn btn-primary', title: 'Ver repositorio') do %>
+            <%= link_to(project.project_repository_url, class: "btn btn-primary #{'disabled' if project.project_repository_url.blank?}", title: 'Ver repositorio') do %>
               <i class="bi bi-code-slash"></i>
+              <span>Código</span>
             <% end %>
           </div>
         </div>

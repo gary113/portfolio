@@ -1,0 +1,93 @@
+/*
+ * Provides a drop-in pointer for the default Trix stylesheet that will format the toolbar and
+ * the trix-editor content (whether displayed or under editing). Feel free to incorporate this
+ * inclusion directly in any other asset bundle and remove this file.
+ *
+ *= require trix
+*/
+
+/*
+ * We need to override trix.css’s image gallery styles to accommodate the
+ * <action-text-attachment> element we wrap around attachments. Otherwise,
+ * images in galleries will be squished by the max-width: 33%; rule.
+*/
+.trix-content .attachment-gallery > action-text-attachment,
+.trix-content .attachment-gallery > .attachment {
+  flex: 1 0 33%;
+  padding: 0 0.5em;
+  max-width: 33%;
+}
+
+.trix-content .attachment-gallery.attachment-gallery--2 > action-text-attachment,
+.trix-content .attachment-gallery.attachment-gallery--2 > .attachment, .trix-content .attachment-gallery.attachment-gallery--4 > action-text-attachment,
+.trix-content .attachment-gallery.attachment-gallery--4 > .attachment {
+  flex-basis: 50%;
+  max-width: 50%;
+}
+
+.trix-content action-text-attachment .attachment {
+  padding: 0 !important;
+  max-width: 100% !important;
+}
+
+/* Custom CSS */
+
+.trix-button {
+  background-color: #4c4c4c;
+  color: #ffffff;
+}
+
+.trix-button:hover {
+  background-color: #5c5c5c;
+}
+
+.trix-button.trix-active {
+  background-color: #6c6c6c;
+}
+
+.trix-input {
+  background-color: #2c2c2c;
+  color: #ffffff;
+}
+
+.trix-content h1,
+.trix-content h2,
+.trix-content h3,
+.trix-content blockquote,
+.trix-content ol,
+.trix-content ul,
+.trix-content p {
+  color: #ffffff;
+}
+
+.trix-content a {
+  color: #66b3ff;
+}
+
+.trix-content pre {
+  background-color: #3c3c3c;
+  color: #ffffff;
+}
+
+.trix-button-group {
+  border-color: #5c5c5c;
+}
+
+.trix-button--icon::before {
+  filter: invert(1);
+}
+
+.trix-dialog {
+  background-color: #3c3c3c;
+  color: #ffffff;
+}
+
+.trix-input--dialog {
+  background-color: #2c2c2c;
+  color: #ffffff;
+  border-color: #5c5c5c;
+}
+
+.trix-button-group--file-tools {
+  display: none !important;
+}

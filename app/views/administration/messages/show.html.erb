@@ -1,0 +1,15 @@
+<h1>Contenido del mensaje</h1>
+
+<div class="d-flex flex-column">
+  <h5><strong>Remitente:</strong> <%= @message.message_email %></h5>
+  <h5><strong>Asunto:</strong> <%= @message.message_subject %></h5>
+</div>
+
+<div class="d-flex flex-column mt-3">
+  <h5><strong>Contenido:</strong></h5>
+  <textarea class="form-control" rows="<%= @message.message_content.lines.count + 1 %>" style="min-height: 200px;" readonly><%= @message.message_content %></textarea>
+</div>
+
+<div class="d-flex flex-column mt-3">
+  <h5><strong>Perfil:</strong> <%= @message.profile.profile_name %></h5>
+</div>

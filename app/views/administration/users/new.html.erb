@@ -1,0 +1,20 @@
+<h1>Nuevo usuario</h1>
+
+<%= form_with(model: @user, url: administration_users_path) do |form| %>
+  <div class="mb-3">
+    <%= form.label(:user_name, "Nombre de usuario", class: "form-label") %><br>
+    <%= form.text_field(:user_name, class: "form-control", required: true) %>
+  </div>
+  <div class="mb-3">
+    <%= form.label(:password, "Contraseña", class: "form-label")%><br>
+    <%= form.password_field(:password, class: "form-control", required: true) %>
+  </div>
+  <div class="mb-3">
+    <%= form.label(:password_confirmation, "Confirmación de contraseña", class: "form-label") %><br>
+    <%= form.password_field(:password_confirmation, class: "form-control", required: true) %>
+  </div>
+  <div class="text-end">
+    <%= link_to('Volver', administration_users_path, class: 'btn btn-secondary') %>
+    <%= form.submit('Guardar', class: 'btn btn-primary') %>
+  </div>
+<% end %>

@@ -1,0 +1,31 @@
+<%= form_with(model: @project, url: @project.new_record? ? administration_projects_path : administration_project_path(@project), class: "container mt-5") do |form| %>
+  <div class="mb-3">
+    <%= form.label(:project_image, "Foto del proyecto", class: "form-label") %>
+    <%= form.file_field(:project_image, class: "form-control", accept: "image/*") %>
+  </div>
+  
+  <div class="mb-3">
+    <%= form.label(:project_name, "Nombre del proyecto", class: "form-label") %>
+    <%= form.text_field(:project_name, class: "form-control", required: true) %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label(:project_description, "Descripción del proyecto", class: "form-label") %>
+    <%= form.text_area(:project_description, class: "form-control", rows: 6, style: "min-height: 100px;") %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label(:project_demo_url, "URL de demostración", class: "form-label") %>
+    <%= form.url_field(:project_demo_url, class: "form-control") %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label(:project_repository_url, "URL del repositorio", class: "form-label") %>
+    <%= form.url_field(:project_repository_url, class: "form-control") %>
+  </div>
+
+  <div class="mb-3 text-end">
+    <%= link_to("Volver", administration_projects_path, class: "btn btn-secondary") %>
+    <%= form.submit("Guardar", class: "btn btn-primary") %>
+  </div>
+<% end %>

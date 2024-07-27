@@ -1,16 +1,16 @@
 <div class="container">
   <div class="row justify-content-center">
     <div class="col-auto my-3">
-      <h2>03 : Acerca de Mí</h2>
+      <h2>Acerca de Mí</h2>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-12 col-xl-8">
-      <%= @profile.profile_about_text.html_safe %>
+    <div class="col-12 col-xl-8" style="background-color: rgba(21,25,29,0.3);">
+      <%= @profile.profile_about_text %>
     </div>
     <div class="col-12 col-xl-4">
-      <img class="img-fluid" src="<%= @profile.profile_picture.attached? ? @profile.profile_picture : asset_path('profile_picture_placeholder.png') %>">
+      <img class="img-fluid" src="<%= @profile.profile_picture.attached? ? url_for(@profile.profile_picture) : asset_path('profile_picture_placeholder.png') %>">
     </div>
   </div>
 </div>

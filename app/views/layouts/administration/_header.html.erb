@@ -1,0 +1,23 @@
+<header class="p-1 mb-3 border-bottom sticky-top" style="background-color: #212529;">
+  <nav class="navbar navbar-expand-lg">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav align-items-center">
+        <li class="nav-item"><%= link_to('Usuarios', administration_users_path, class: "nav-link px-3 #{current_page?(administration_users_path) ? 'active' : ''}") %></li>
+        <li class="nav-item"><%= link_to('Perfiles', administration_profiles_path, class: "nav-link px-3 #{current_page?(administration_profiles_path) ? 'active' : ''}") %></li>
+        <li class="nav-item"><%= link_to('Proyectos', administration_projects_path, class: "nav-link px-3 #{current_page?(administration_projects_path) ? 'active' : ''}") %></li>
+        <li class="nav-item"><%= link_to('Mensajes', administration_messages_path, class: "nav-link px-3 #{current_page?(administration_messages_path) ? 'active' : ''}") %></li>
+      </ul>
+    </div>
+    <div class="dropdown ms-auto">
+      <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+        <img src="<%= current_user.user_avatar.attached? ? url_for(current_user.user_avatar) : asset_path('profile_picture_placeholder.png') %>" width="32" height="32" class="rounded-circle">
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end">
+        <%= link_to('Cerrar sesión', administration_user_session_path(current_user), class: "dropdown-item", data: { turbo_method: :delete }) %>
+      </ul>
+    </div>
+  </nav>
+</header>

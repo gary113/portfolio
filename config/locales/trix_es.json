@@ -1,0 +1,17 @@
+{
+  "trixTranslation": {
+    "bold": "Negrita",
+    "italic": "Cursiva",
+    "strike": "Tachado",
+    "link": "Enlace",
+    "numbers": "Lista numerada",
+    "bullets": "Lista de viñetas",
+    "quote": "Cita",
+    "code": "Código",
+    "heading1": "Encabezado 1",
+    "decreaseNestingLevel": "Disminuir nivel de anidación",
+    "increaseNestingLevel": "Aumentar nivel de anidación",
+    "undo": "Deshacer",
+    "redo": "Rehacer"
+  }
+}

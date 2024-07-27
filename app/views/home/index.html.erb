@@ -1,14 +1,10 @@
-<div class="main-container h-100" data-controller="home" data-home-target="homeContainer">
-  <div class="container h-100 d-flex">
-    <div class="my-auto">
-      <h1 class="home-message display-1"><%= @profile.profile_greeting %><br>
-        <div id="typed-strings">
-          <% @profile.profile_home_text.split('<br>').each do |home_text| %>
-            <p><%= home_text.html_safe %></p>
-          <% end %>
-        </div>
-        <span id="typed"></span>
-      </h1>
+<div class="container d-flex align-items-center" data-controller="home" style="min-height: 80vh">
+  <h1 class="home-message display-1 shadow-text"><%= @profile.profile_greeting %><br>
+    <div id="typed-strings">
+      <% @profile.profile_home_text.split(/\r?\n/).each do |home_text| %>
+        <p><%= home_text %></p>
+      <% end %>
     </div>
-  </div>
+    <span id="typed"></span>
+  </h1>
 </div>

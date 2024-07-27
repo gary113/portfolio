@@ -1,0 +1,36 @@
+<h1>Perfiles</h1>
+
+<div class="d-flex justify-content-end">
+  <%= link_to('Nuevo perfil', new_administration_profile_path, class: 'btn btn-primary mb-3') %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-hover table-bordered">
+    <thead>
+      <tr class="text-center">
+        <th class="col-1">ID</th>
+        <th class="col-6">Nombre</th>
+        <th class="col">Estado</th>
+        <th class="col">Opciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @profiles.each do |profile| %>
+        <% current_profile = Profile.current_profile == profile %>
+        <% status_bagde = current_profile ? 'success' : 'secondary' %>
+        <tr class="text-center align-middle">
+          <td><%= profile.id %></td>
+          <td><%= profile.profile_name %></td>
+          <td><span class="badge text-bg-<%= status_bagde %>"><%= profile.profile_status_humanized %></span></td>
+          <td>
+            <%= link_to('Editar', edit_administration_profile_path(profile), class: 'btn btn-primary mb-md-0 mb-2') %>
+            <% unless current_profile %>
+              <%= link_to('Activar', activate_administration_profile_path(profile), class: 'btn btn-success mb-md-0 mb-2', data: { turbo_method: :patch }) %>
+              <%= link_to('Eliminar', administration_profile_path(profile), class: 'btn btn-danger mb-md-0 mb-2', data: { turbo_method: :delete, turbo_confirm: '¿Realmente desea eliminar este usuario?' }) %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

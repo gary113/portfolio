@@ -1,36 +1,70 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto|Roboto+Mono);
-
-html, body {
+html,
+body {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 main {
   flex: 1;
 }
 
-.main-container {
-  background-image: url(/assets/space.jpg);
-}
-
 body {
-  font-family: Roboto Mono, monospace, Helvetica, Arial, sans-serif;
+  font-family: Roboto Mono, monospace, Helvetica, Arial, sans-serif !important;
   font-size: 14px;
 }
 
 .home-message {
-    font-family: Roboto, Helvetica, Arial, sans-serif;
-    font-weight: bolder;
-    text-shadow: 4px 4px 2px black;
+  font-family: Roboto, Helvetica, Arial, sans-serif !important;
+  font-weight: bolder;
+  text-shadow: 4px 4px 2px black;
 }
 
-.nav-link:not(:focus):not(:hover) {
-  font-weight: lighter !important;
-}
-
+.nav-link.active,
 .nav-link:focus,
 .nav-link:hover {
-  text-decoration: underline;
   font-weight: bolder;
+}
+
+.fadein {
+  animation: fadein 5s forwards;
+}
+
+.slideToLeft {
+  animation: slideToLeft 0.5s forwards;
+}
+
+.slideToRight {
+  animation: slideToRight 0.5s forwards;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideToLeft {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideToRight {
+  from {
+    transform: translateX(-100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
 }

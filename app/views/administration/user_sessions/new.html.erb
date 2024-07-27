@@ -1,0 +1,12 @@
+<main class="container-fluid d-flex align-items-center justify-content-center">
+  <%= form_with(model: @user, url: administration_user_sessions_path) do |f| %>
+    <div data-mdb-input-init class="form-outline mb-4">
+      <%= f.text_field(:user_name, class: "form-control form-control-lg", placeholder: "Username")%>
+    </div>
+    <div data-mdb-input-init class="form-outline mb-4">
+      <%= f.password_field(:password, class: "form-control form-control-lg", placeholder: "Contraseña") %>
+    </div>
+
+    <%= f.submit('Iniciar Sesión', class: 'btn btn-primary btn-lg btn-block') %>
+  <% end %>
+</div>

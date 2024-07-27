@@ -1,17 +1,23 @@
 <!DOCTYPE html>
-<html data-bs-theme="dark">
+<html data-bs-theme="dark" lang="es">
   <head>
     <title>Portfolio</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="turbo-cache-control" content="no-cache">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag("application", "data-turbo-track": "reload") %>
     <%= javascript_include_tag("application", "data-turbo-track": "reload", type: "module") %>
+    <%= favicon_link_tag("favicon.ico", rel: "icon") %>
   </head>
 
   <body data-controller="application">
-    <%= render(partial: 'layouts/header') %>
-    <%= yield %>
+    <div data-application-target="backgroundContainer" style="position: fixed; min-width: 100vw; min-height: 100vh; z-index: -1"></div>
+    <%= render(partial: 'layouts/public/header') %>
+    <%= render(partial: 'layouts/shared/flash') %>
+    <div id="main-container" style="min-height: 94vh">
+      <%= yield %>
+    </div>
   </body>
 </html>

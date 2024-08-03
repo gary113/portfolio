@@ -68,3 +68,5 @@ gem 'cssbundling-rails', '~> 1.4'
 gem 'awesome_print', '~> 1.9'
 
 gem 'faker', '~> 3.4'
+
+gem "humanizer", "~> 2.7"

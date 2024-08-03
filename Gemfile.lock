@@ -115,6 +115,7 @@ GEM
     ffi (1.17.0-x86_64-linux-gnu)
     globalid (1.2.1)
       activesupport (>= 6.1)
+    humanizer (2.7.0)
     i18n (1.14.5)
       concurrent-ruby (~> 1.0)
     image_processing (1.13.0)
@@ -283,6 +284,7 @@ DEPENDENCIES
   cssbundling-rails (~> 1.4)
   debug
   faker (~> 3.4)
+  humanizer (~> 2.7)
   image_processing (~> 1.2)
   jbuilder
   jsbundling-rails

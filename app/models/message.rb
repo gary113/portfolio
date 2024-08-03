@@ -1,6 +1,9 @@
 class Message < ApplicationRecord
+  include Humanizer
+
   belongs_to(:profile)
   validates(:message_email, format: URI::MailTo::EMAIL_REGEXP)
+  require_human_on(:create)
 
   enum(message_status: { unreaded: 0, readed: 1 })
 

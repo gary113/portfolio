@@ -13,6 +13,7 @@ class ContactController < ApplicationController
       redirect_to(contact_index_path)
     else
       flash[:alert] = @message.errors.full_messages.join('\n')
+      @message.change_humanizer_question(params[:message][:humanizer_question_id])
       render(:index, status: :unprocessable_entity)
     end
   end
@@ -20,6 +21,10 @@ class ContactController < ApplicationController
   private
 
   def message_params
-    params.require(:message).permit(:message_email, :message_subject, :message_content)
+    params.require(:message).permit(:message_email,
+                                    :message_subject,
+                                    :message_content,
+                                    :humanizer_answer,
+                                    :humanizer_question_id)
   end
 end

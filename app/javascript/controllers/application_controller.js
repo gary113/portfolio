@@ -8,9 +8,9 @@ export default class extends Controller {
   static targets = ["navLink", "backgroundContainer"];
 
   connect() {
-    if (document.documentElement.hasAttribute('data-turbo-preview')) {
-      return;
-    }
+    // if (document.documentElement.hasAttribute('data-turbo-preview')) {
+    //   return;
+    // }
 
     this.vanta = this.init_vanta();
     this.pages = this.navLinkTargets.map((navLink) => navLink.getAttribute('href'));
@@ -18,24 +18,24 @@ export default class extends Controller {
     this.currentPageIndex = this.currentPageIndex === -1 ? 0 : this.currentPageIndex;
 
     document.addEventListener('turbo:request-start', function () {
-      this.backgroundContainerTarget.classList.add('fadein');
+      this.backgroundContainerTarget.classList.add('fadeIn');
     });
 
     document.addEventListener('turbo:render', () => {
       const mainContainer = document.querySelector('#main-container');
 
-      this.backgroundContainerTarget.classList.add('fadein');
+      this.backgroundContainerTarget.classList.add('fadeIn');
 
       if (this.currentPageIndex !== undefined && this.newPageIndex !== undefined) {
         if (this.currentPageIndex < this.newPageIndex) {
-          mainContainer.classList.remove('slideToRight');
-          mainContainer.classList.add('slideToLeft');
+          mainContainer.classList.remove('slideToNext');
+          mainContainer.classList.add('slideToPrevious');
         } else if (this.currentPageIndex > this.newPageIndex) {
-          mainContainer.classList.remove('slideToLeft');
-          mainContainer.classList.add('slideToRight');
+          mainContainer.classList.remove('slideToPrevious');
+          mainContainer.classList.add('slideToNext');
         } else {
-          mainContainer.classList.remove('slideToRight');
-          mainContainer.classList.remove('slideToLeft');
+          mainContainer.classList.remove('slideToNext');
+          mainContainer.classList.remove('slideToPrevious');
         }
 
         this.currentPageIndex = this.newPageIndex;
@@ -61,7 +61,7 @@ export default class extends Controller {
   }
 
   updateNewPageIndex(event) {
-    this.newPageIndex = this.pages.indexOf(event.target.getAttribute('href'));
+    this.newPageIndex = this.pages.indexOf(event.currentTarget.getAttribute('href'));
     this.newPageIndex = this.newPageIndex === -1 ? 0 : this.newPageIndex;
   }
 }

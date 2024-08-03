@@ -15,6 +15,7 @@
   <body data-controller="application">
     <div data-application-target="backgroundContainer" style="position: fixed; min-width: 100vw; min-height: 100vh; z-index: -1"></div>
     <%= render(partial: 'layouts/public/header') %>
+    <%= render(partial: 'layouts/public/navigation_arrows') %>
     <%= render(partial: 'layouts/shared/flash') %>
     <div id="main-container" style="min-height: 94vh">
       <%= yield %>

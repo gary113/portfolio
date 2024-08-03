@@ -1,22 +1,24 @@
-<header class="sticky-top border-bottom" style="background-color: #212529;">
+<% @header_list = [
+  { name: 'Inicio', path: home_index_path },
+  { name: 'Proyectos', path: projects_path },
+  { name: 'Acerca de mí', path: about_index_path },
+  { name: 'Contacto', path: contact_index_path }
+] %>
+
+<% @current_page_index = (@header_list.index { |header| current_page?(header[:path]) }).to_i %>
+
+<header class="absolute-top border-bottom" style="background-color: #212529;">
   <nav class="navbar navbar-expand-lg justify-content-end">
     <button class="navbar-toggler mx-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
       <ul class="navbar-nav w-100 justify-content-center">
-        <li class="nav-item">
-          <%= link_to('Inicio', home_index_path, class: "nav-link text-center #{current_page?(home_index_path) || current_page?(root_path) ? 'active' : ''}", data: { application_target: "navLink", action: "click->application#updateNewPageIndex" }) %>
-        </li>
-        <li class="nav-item">
-          <%= link_to('Proyectos', projects_path, class: "nav-link text-center #{current_page?(projects_path) ? 'active' : ''}", data: { application_target: "navLink", action: "click->application#updateNewPageIndex" }) %>
-        </li>
-        <li class="nav-item">
-          <%= link_to('Acerca de Mí', about_index_path, class: "nav-link text-center #{current_page?(about_index_path) ? 'active' : ''}", data: { application_target: "navLink", action: "click->application#updateNewPageIndex" }) %>
-        </li>
-        <li class="nav-item">
-          <%= link_to('Contacto', contact_index_path, class: "nav-link text-center #{current_page?(contact_index_path) ? 'active' : ''}", data: { application_target: "navLink", action: "click->application#updateNewPageIndex" }) %>
-        </li>
+        <% @header_list.each_with_index do |header, index| %>
+          <li class="nav-item">
+            <%= link_to(header[:name], header[:path], class: "nav-link text-center #{index == @current_page_index ? 'active' : ''}", data: { application_target: "navLink", action: "click->application#updateNewPageIndex" }) %>
+          </li>
+        <% end %>
       </ul>
     </div>
   </nav>

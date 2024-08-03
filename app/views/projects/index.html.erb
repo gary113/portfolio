@@ -5,34 +5,45 @@
         <h2>Mis proyectos</h2>
       </div>
     </div>
-
     <div class="row justify-content-center">
       <% @projects.each do |project| %>
-        <div class="col-auto">
-          <div class="card my-3 p-2" style="width: 18rem;">
-            <% if project.project_image.attached? %>
-              <% project_image = url_for(project.project_image) %>
-              <img src="<%= project_image %>" class="card-img-top image-link" data-bs-toggle="modal" data-bs-target="#projectImageModal" data-action="click->image_modal#load_image" data-project-image-url="<%= project_image %>">
-            <% else %>
-              <img src="<%= asset_path('project_image_placeholder.png') %>" class="card-img-top">
-            <% end %>
-            <div class="card-body">
-              <h5 class="card-title"><%= project.project_name %></h5>
-              <p class="card-text"><%= project.project_description %></p>
-              <% if project.project_demo_url.present? %>
-                <%= link_to(project.project_demo_url, class: "btn btn-primary", title: 'Ver demostración') do %>
-                  <i class="bi bi-globe-americas"></i>
-                  <span>Demo</span>
-                <% end %>
-              <% end %>
-              <% if project.project_repository_url.present?  %>
-                <%= link_to(project.project_repository_url, class: "btn btn-primary", title: 'Ver repositorio') do %>
-                  <i class="bi bi-code-slash"></i>
-                  <span>Código</span>
-                <% end %>
+        <div class="container">
+          <article class="postcard dark blue">
+            <div class="postcard__img_link">
+              <% if project.project_image.attached? %>
+                <% project_image = url_for(project.project_image) %>
+                <img src="<%= project_image %>" class="postcard__img image-link" data-bs-toggle="modal" data-bs-target="#projectImageModal" data-action="click->image_modal#load_image" data-project-image-url="<%= project_image %>">
+              <% else %>
+                <img src="<%= asset_path('project_image_placeholder.png') %>" class="postcard__img">
               <% end %>
             </div>
-          </div>
+            <div class="postcard__text">
+              <h1 class="postcard__title blue"><%= project.project_name %></h1>
+              <div class="postcard__subtitle small">
+                <p>Tecnologías</p>
+              </div>
+              <div class="postcard__bar"></div>
+              <div class="postcard__preview-txt"><%= project.project_description %></div>
+              <ul class="postcard__tagbox">
+                <% if project.project_demo_url.present? %>
+                  <li class="tag__item play blue">
+                    <%= link_to(project.project_demo_url, title: 'Ver demostración') do %>
+                      <i class="bi bi-globe-americas"></i>
+                      <span>Demostración</span>
+                    <% end %>
+                  </li>
+                <% end %>
+                <% if project.project_repository_url.present? %>
+                  <li class="tag__item play blue">
+                    <%= link_to(project.project_repository_url, title: 'Ver repositorio') do %>
+                      <i class="bi bi-code-slash"></i>
+                      <span>Código</span>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </article>
         </div>
       <% end %>
     </div>

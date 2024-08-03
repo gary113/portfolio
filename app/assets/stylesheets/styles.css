@@ -36,19 +36,56 @@ body {
   max-height: 100%;
 }
 
-.fadein {
-  animation: fadein 5s;
+.navigation-arrow {
+  position: fixed;
+  font-size: 2.5rem;
+  opacity: 0.1;
+  top: 50%;
 }
 
-.slideToLeft {
-  animation: slideToLeft 0.5s;
+.navigation-arrow:hover {
+  opacity: 1;
 }
 
-.slideToRight {
-  animation: slideToRight 0.5s;
+.arrow-left {
+  left: 20px;
+  transition: transform 0.5s;
 }
 
-@keyframes fadein {
+.arrow-left:hover {
+  transform: translateX(-10px);
+  padding-right: 10px;
+}
+
+.arrow-right {
+  right: 20px;
+  transition: transform 0.5s;
+}
+
+.arrow-right:hover {
+  transform: translateX(+10px);
+  padding-left: 10px;
+}
+
+@media (max-width: 750px) {
+  .navigation-arrow {
+    display: none;
+  }
+}
+
+.fadeIn {
+  animation: fadeIn 5s;
+}
+
+.slideToPrevious {
+  animation: slideToPrevious 0.5s;
+}
+
+.slideToNext {
+  animation: slideToNext 0.5s;
+}
+
+@keyframes fadeIn {
   from {
     opacity: 0;
   }
@@ -58,7 +95,7 @@ body {
   }
 }
 
-@keyframes slideToLeft {
+@keyframes slideToPrevious {
   from {
     transform: translateX(100%);
   }
@@ -68,7 +105,7 @@ body {
   }
 }
 
-@keyframes slideToRight {
+@keyframes slideToNext {
   from {
     transform: translateX(-100%);
   }

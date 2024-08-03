@@ -5,13 +5,13 @@
     </div>
   </div>
 
-  <% contact_info_present = @profile.profile_phone.present? || @profile.profile_email.present? || @profile.social_networks.present? %>
+  <% contact_info_present = @profile.profile_phone.present? || @profile.profile_email.present? %>
 
   <div class="row">
     <div class="col-12 <%= "#{contact_info_present ? 'col-md-8' : '' }" %> ">
       <%= form_with(model: @message, url: send_message_contact_index_path, method: :post) do |form| %>
         <div class="mb-3">
-          <%= form.text_field(:message_email, class: "form-control", placeholder: "Correo", required: true) %>
+          <%= form.email_field(:message_email, class: "form-control", placeholder: "Correo", required: true) %>
         </div>
         <div class="mb-3">
           <%= form.text_field(:message_subject, class: "form-control", placeholder: "Asunto", required: true) %>
@@ -24,18 +24,12 @@
     </div>
     <% if contact_info_present %>
       <div class="col-12 col-md-4">
-        <div class="contact-info mt-4">
+        <div class="mt-4">
           <% if @profile.profile_phone.present? %>
             <p><i class="bi bi-telephone"></i> <%= @profile.profile_phone %></p>
           <% end %>
           <% if @profile.profile_email.present? %>
             <p><i class="bi bi-envelope"></i> <%= mail_to(@profile.profile_email, style: "text-decoration: none") %></p>
-          <% end %>
-          <% if  @profile.social_networks.present? %>
-            <h3>Visita mis redes:</h3>
-            <% @profile.social_networks.each do |social_network| %>
-              <a href="<%= social_network.social_network_url %>" title="<%= social_network.social_network_type %>"><i class="bi bi-<%= social_network.social_network_type %>" style="font-size: 1.5rem"></i></a>
-            <% end %>
           <% end %>
         </div>
       </div>

@@ -10,12 +10,20 @@ es:
     attributes:
       profile:
         profile_statuses:
-          inactive: "Inactivo"
-          active: "Activo"
+          inactive: Inactivo
+          active: Activo
+      project:
+        project_statuses:
+          disabled: Desactivado
+          enabled: Activado
       message:
         message_statuses:
           readed: Leido
           unreaded: Sin leer
+      social_network:
+        social_network_statuses:
+          disabled: Desactivado
+          enabled: Activado
   date:
     abbr_day_names:
     - dom

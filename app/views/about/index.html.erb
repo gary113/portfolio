@@ -6,11 +6,11 @@
   </div>
 
   <div class="row">
-    <div class="col-12 col-xl-8" style="background-color: rgba(21,25,29,0.3);">
+    <div class="col-12 col-xl-8">
       <%= @profile.profile_about_text %>
     </div>
     <div class="col-12 col-xl-4">
-      <img class="img-fluid" src="<%= @profile.profile_picture.attached? ? url_for(@profile.profile_picture) : asset_path('profile_picture_placeholder.png') %>">
+      <img class="img-fluid" src="<%= @profile.profile_picture.attached? ? url_for(@profile.profile_picture) : asset_path('placeholders/profile_picture_placeholder.png') %>">
     </div>
   </div>
 </div>

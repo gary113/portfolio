@@ -1,0 +1,35 @@
+<h1>Redes sociales</h1>
+
+<h5><strong>Perfil activo:</strong> <%= Profile.current_profile.profile_name %></h5>
+
+<div class="d-flex justify-content-end">
+  <%= link_to('Nueva red social', new_administration_social_network_path, class: 'btn btn-primary mb-3') %>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-hover table-bordered">
+    <thead>
+      <tr class="text-center">
+        <th class="col-1">ID</th>
+        <th class="col-2">Nombre</th>
+        <th class="col">Url</th>
+        <th class="col-1">Estado</th>
+        <th class="col-4">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @social_networks.each do |social_network| %>
+        <tr class="text-center align-middle">
+          <td><%= social_network.id %></td>
+          <td><%= social_network.social_network_name %></td>
+          <td><%= link_to(social_network.social_network_url, social_network.social_network_url) %></td>
+          <td><span class="badge text-bg-<%= social_network.enabled? ? 'success' : 'secondary' %>"><%= social_network.social_network_status_humanized %></span></td>
+          <td>
+            <%= link_to('Editar', edit_administration_social_network_path(social_network), class: 'btn btn-primary mb-md-0 mb-2') %>
+            <%= link_to("#{social_network.enabled? ? 'Desactivar' : 'Activar'}", toggle_status_administration_social_network_path(social_network), class: 'btn btn-success mb-md-0 mb-2', data: { turbo_method: :patch }) %>
+            <%= link_to('Eliminar', administration_social_network_path(social_network), class: 'btn btn-danger mb-md-0', data: { turbo_method: :delete, turbo_confirm: '¿Realmente desea eliminar esta red social?' }) %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

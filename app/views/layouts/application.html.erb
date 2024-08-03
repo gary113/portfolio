@@ -9,11 +9,10 @@
 
     <%= stylesheet_link_tag("application", "data-turbo-track": "reload") %>
     <%= javascript_include_tag("application", "data-turbo-track": "reload", type: "module") %>
-    <%= favicon_link_tag("favicon.ico", rel: "icon") %>
+    <%= favicon_link_tag("favicon.svg", rel: "icon") %>
   </head>
 
   <body data-controller="application">
-    <div data-application-target="backgroundContainer" style="position: fixed; min-width: 100vw; min-height: 100vh; z-index: -1"></div>
     <%= render(partial: 'layouts/public/header') %>
     <%= render(partial: 'layouts/public/navigation_arrows') %>
     <%= render(partial: 'layouts/shared/flash') %>

@@ -1,9 +1,16 @@
 <%= form_with(model: @project, url: @project.new_record? ? administration_projects_path : administration_project_path(@project), class: "container mt-5") do |form| %>
   <div class="mb-3">
     <%= form.label(:project_image, "Foto del proyecto", class: "form-label") %>
-    <%= form.file_field(:project_image, class: "form-control", accept: "image/*") %>
+    <% if @project.project_image.attached? %>
+      <div class="mb-2 text-center">
+        <%= image_tag(url_for(@project.project_image), tittle: "Imagen actual", alt: "Imagen actual", style: 'max-height: 250px;') %>
+      </div>
+      <%= form.file_field(:project_image, class: "form-control", accept: "image/*") %>
+    <% else %>
+      <%= form.file_field(:project_image, class: "form-control", accept: "image/*", required: true) %>
+    <% end %>
   </div>
-  
+
   <div class="mb-3">
     <%= form.label(:project_name, "Nombre del proyecto", class: "form-label") %>
     <%= form.text_field(:project_name, class: "form-control", required: true) %>

@@ -1,0 +1,23 @@
+<%= form_with(model: @technology, url: @technology.new_record? ? administration_technologies_path : administration_technology_path(@technology), class: "container mt-5") do |form| %>
+  <div class="mb-3">
+    <%= form.label(:technology_icon, "Ícono de la tecnología", class: "form-label") %>
+    <% if @technology.technology_icon.attached? %>
+      <div class="mb-2 text-center">
+        <%= image_tag(url_for(@technology.technology_icon), tittle: "Ícono actual", alt: "Ícono actual", style: 'width: 5rem; height: 5rem;') %>
+      </div>
+      <%= form.file_field(:technology_icon, class: "form-control", accept: "image/*") %>
+    <% else %>
+      <%= form.file_field(:technology_icon, class: "form-control", accept: "image/*", required: true) %>
+    <% end %>
+  </div>
+  
+  <div class="mb-3">
+    <%= form.label(:technology_name, "Nombre de la tecnología", class: "form-label") %>
+    <%= form.text_field(:technology_name, class: "form-control", required: true) %>
+  </div>
+
+  <div class="mb-3 text-end">
+    <%= link_to("Volver", administration_technologies_path, class: "btn btn-secondary") %>
+    <%= form.submit("Guardar", class: "btn btn-primary") %>
+  </div>
+<% end %>

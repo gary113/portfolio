@@ -1,7 +1,14 @@
 <%= form_with(model: @profile, url: @profile.new_record? ? administration_profiles_path : administration_profile_path, class: "container mt-5") do |form| %>
   <div class="mb-3">
     <%= form.label(:profile_picture, "Foto de perfil", class: "form-label") %>
-    <%= form.file_field(:profile_picture, class: "form-control", accept: "image/*") %>
+    <% if @profile.profile_picture.attached? %>
+      <div class="mb-2 text-center">
+        <%= image_tag(url_for(@profile.profile_picture), tittle: "Imagen actual", alt: "Imagen actual", style: 'max-height: 250px;') %>
+      </div>
+      <%= form.file_field(:profile_picture, class: "form-control", accept: "image/*") %>
+    <% else %>
+      <%= form.file_field(:profile_picture, class: "form-control", accept: "image/*", required: true) %>
+    <% end %>
   </div>
 
   <div class="mb-3">

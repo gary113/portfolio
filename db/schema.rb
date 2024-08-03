@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_24_225928) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_03_181824) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.string "name", null: false
     t.text "body"
@@ -61,7 +61,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_24_225928) do
   end
 
   create_table "profiles", force: :cascade do |t|
-    t.string "profile_name"
+    t.string "profile_name", null: false
     t.integer "profile_status", limit: 1, default: 0, null: false
     t.string "profile_email"
     t.string "profile_phone"
@@ -71,9 +71,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_24_225928) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "project_technologies", force: :cascade do |t|
+    t.integer "project_id", null: false
+    t.integer "technology_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id", "technology_id"], name: "index_project_technologies_on_project_id_and_technology_id", unique: true
+    t.index ["project_id"], name: "index_project_technologies_on_project_id"
+    t.index ["technology_id"], name: "index_project_technologies_on_technology_id"
+  end
+
   create_table "projects", force: :cascade do |t|
     t.integer "project_status", limit: 1, default: 0, null: false
-    t.string "project_name"
+    t.string "project_name", null: false
     t.string "project_description"
     t.string "project_demo_url"
     t.string "project_repository_url"
@@ -84,12 +94,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_24_225928) do
   end
 
   create_table "social_networks", force: :cascade do |t|
-    t.integer "social_network_type"
-    t.string "social_network_url"
+    t.string "social_network_name", null: false
+    t.string "social_network_url", null: false
+    t.integer "social_network_status", limit: 1, default: 0, null: false
     t.integer "profile_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["profile_id"], name: "index_social_networks_on_profile_id"
+  end
+
+  create_table "technologies", force: :cascade do |t|
+    t.string "technology_name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -103,6 +120,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_24_225928) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "messages", "profiles"
+  add_foreign_key "project_technologies", "projects"
+  add_foreign_key "project_technologies", "technologies"
   add_foreign_key "projects", "profiles"
   add_foreign_key "social_networks", "profiles"
 end

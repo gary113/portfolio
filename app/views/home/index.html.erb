@@ -1,10 +1,22 @@
-<div class="container d-flex align-items-center" data-controller="home" style="min-height: 80vh">
-  <h1 class="home-message display-1 shadow-text"><%= @profile.profile_greeting %><br>
-    <div id="typed-strings">
-      <% @profile.profile_home_text.split(/\r?\n/).each do |home_text| %>
-        <p><%= home_text %></p>
+<div data-controller="home">
+  <div data-home-target="backgroundContainer" style="position: fixed; min-width: 100vw; min-height: 100vh; z-index: -1"></div>
+  <div class="container d-flex flex-column justify-content-center" style="min-height: 80vh">
+    <h1 class="home-message display-1 shadow-text">
+      <%= @profile.profile_greeting %><br>
+      <div id="typed-strings">
+        <% @profile.profile_home_text.split(/\r?\n/).each do |home_text| %>
+          <p><%= home_text %></p>
+        <% end %>
+      </div>
+      <span id="typed"></span>
+    </h1>
+
+    <div class="mt-4">
+      <% @profile.social_networks.enabled&.each do |social_network| %>
+        <a href="<%= social_network.social_network_url %>" title="<%= social_network.social_network_name %>" target="_blank">
+          <%= image_tag(url_for(social_network.social_network_icon), alt: social_network.social_network_name, style: 'width: 3rem; height: 3rem;') %>
+        </a>
       <% end %>
     </div>
-    <span id="typed"></span>
-  </h1>
+  </div>
 </div>

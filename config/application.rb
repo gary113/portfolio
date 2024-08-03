@@ -37,5 +37,9 @@ module Portfolio
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+
+    # Hack for allowing SVG files. While this hack is here, we should **not**
+    # allow arbitrary SVG uploads. https://github.com/rails/rails/issues/34665
+    ActiveStorage::Engine.config.active_storage.content_types_to_serve_as_binary.delete('image/svg+xml')
   end
 end

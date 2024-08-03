@@ -1,0 +1,28 @@
+<%= form_with(model: @social_network, url: @social_network.new_record? ? administration_social_networks_path : administration_social_network_path(@social_network), class: "container mt-5") do |form| %>
+  <div class="mb-3">
+    <%= form.label(:social_network_icon, "Ícono de la red social", class: "form-label") %>
+    <% if @social_network.social_network_icon.attached? %>
+      <div class="mb-2 text-center">
+        <%= image_tag(url_for(@social_network.social_network_icon), tittle: "Ícono actual", alt: "Ícono actual", style: 'width: 5rem; height: 5rem;') %>
+      </div>
+      <%= form.file_field(:social_network_icon, class: "form-control", accept: "image/*") %>
+    <% else %>
+      <%= form.file_field(:social_network_icon, class: "form-control", accept: "image/*", required: true) %>
+    <% end %>
+  </div>
+  
+  <div class="mb-3">
+    <%= form.label(:social_network_name, "Nombre de la red social", class: "form-label") %>
+    <%= form.text_field(:social_network_name, class: "form-control", required: true) %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label(:social_network_url, "URL de la red social", class: "form-label",) %>
+    <%= form.url_field(:social_network_url, class: "form-control", required: true) %>
+  </div>
+
+  <div class="mb-3 text-end">
+    <%= link_to("Volver", administration_social_networks_path, class: "btn btn-secondary") %>
+    <%= form.submit("Guardar", class: "btn btn-primary") %>
+  </div>
+<% end %>

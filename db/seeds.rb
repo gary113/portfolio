@@ -32,78 +32,56 @@ ActiveRecord::Base.transaction do
   SocialNetwork.find_or_create_by(profile_id: 1, social_network_name: 'LinkedIn') do |social_network|
     social_network.social_network_url = 'https://www.linkedin.com/in/my-name/'
     social_network.social_network_status = :enabled
+    social_network.social_network_position = 1
   end.social_network_icon.attach(io: File.open('app/assets/images/social_networks/linkedin.svg'), filename: 'linkedin.svg', content_type: 'image/svg+xml')
 
   SocialNetwork.find_or_create_by(profile_id: 1, social_network_name: 'GitHub') do |social_network|
     social_network.social_network_url = 'https://github.com/my-name'
     social_network.social_network_status = :enabled
+    social_network.social_network_position = 2
   end.social_network_icon.attach(io: File.open('app/assets/images/social_networks/github.svg'), filename: 'github.svg', content_type: 'image/svg+xml')
 end
 
 ActiveRecord::Base.transaction do
-  Technology.find_or_create_by(technology_name: 'Ruby').technology_icon.attach(
-    io: File.open('app/assets/images/technologies/ruby.svg'), filename: 'ruby.svg', content_type: 'image/svg+xml'
-  )
-  Technology.find_or_create_by(technology_name: 'Sinatra').technology_icon.attach(
-    io: File.open('app/assets/images/technologies/sinatra.svg'), filename: 'sinatra.svg', content_type: 'image/svg+xml'
-  )
-  Technology.find_or_create_by(technology_name: 'Rails').technology_icon.attach(
-    io: File.open('app/assets/images/technologies/rails.svg'), filename: 'rails.svg', content_type: 'image/svg+xml'
-  )
-  Technology.find_or_create_by(technology_name: 'Javascript').technology_icon.attach(
-    io: File.open('app/assets/images/technologies/javascript.svg'), filename: 'javascript.svg', content_type: 'image/svg+xml'
-  )
-  Technology.find_or_create_by(technology_name: 'HTML5').technology_icon.attach(
-    io: File.open('app/assets/images/technologies/html5.svg'), filename: 'html.svg', content_type: 'image/svg+xml'
-  )
-  Technology.find_or_create_by(technology_name: 'Bootstrap').technology_icon.attach(
-    io: File.open('app/assets/images/technologies/bootstrap.svg'), filename: 'bootstrap.svg', content_type: 'image/svg+xml'
-  )
-  Technology.find_or_create_by(technology_name: 'Bulma').technology_icon.attach(
-    io: File.open('app/assets/images/technologies/bulma.svg'), filename: 'bulma.svg', content_type: 'image/svg+xml'
-  )
-  Technology.find_or_create_by(technology_name: 'Tailwind').technology_icon.attach(
-    io: File.open('app/assets/images/technologies/tailwind.svg'), filename: 'tailwind.svg', content_type: 'image/svg+xml'
-  )
-  Technology.find_or_create_by(technology_name: 'Python').technology_icon.attach(
-    io: File.open('app/assets/images/technologies/python.svg'), filename: 'python.svg', content_type: 'image/svg+xml'
-  )
-  Technology.find_or_create_by(technology_name: 'Flask').technology_icon.attach(
-    io: File.open('app/assets/images/technologies/flask.svg'), filename: 'flask.svg', content_type: 'image/svg+xml'
-  )
-  Technology.find_or_create_by(technology_name: 'Django').technology_icon.attach(
-    io: File.open('app/assets/images/technologies/django.svg'), filename: 'django.svg', content_type: 'image/svg+xml'
-  )
-  Technology.find_or_create_by(technology_name: 'Linux').technology_icon.attach(
-    io: File.open('app/assets/images/technologies/linux.svg'), filename: 'linux.svg', content_type: 'image/svg+xml'
-  )
-  Technology.find_or_create_by(technology_name: 'Mysql').technology_icon.attach(
-    io: File.open('app/assets/images/technologies/mysql.svg'), filename: 'mysql.svg', content_type: 'image/svg+xml'
-  )
-  Technology.find_or_create_by(technology_name: 'Qt').technology_icon.attach(
-    io: File.open('app/assets/images/technologies/qt.svg'), filename: 'qt.svg', content_type: 'image/svg+xml'
-  )
-  Technology.find_or_create_by(technology_name: 'Selenium').technology_icon.attach(
-    io: File.open('app/assets/images/technologies/selenium.svg'), filename: 'selenium.svg', content_type: 'image/svg+xml'
-  )
-  Technology.find_or_create_by(technology_name: 'Sqlite').technology_icon.attach(
-    io: File.open('app/assets/images/technologies/sqlite.svg'), filename: 'sqlite.svg', content_type: 'image/svg+xml'
-  )
-  Technology.find_or_create_by(technology_name: 'Tcl/Tk').technology_icon.attach(
-    io: File.open('app/assets/images/technologies/tcl.svg'), filename: 'tcl.svg', content_type: 'image/svg+xml'
-  )
-  Technology.find_or_create_by(technology_name: 'Terraform').technology_icon.attach(
-    io: File.open('app/assets/images/technologies/terraform.svg'), filename: 'terraform.svg', content_type: 'image/svg+xml'
-  )
-  Technology.find_or_create_by(technology_name: 'Ansible').technology_icon.attach(
-    io: File.open('app/assets/images/technologies/ansible.svg'), filename: 'ansible.svg', content_type: 'image/svg+xml'
-  )
+  technologies = [
+    { name: 'Ruby', position: 1, icon: 'ruby.svg' },
+    { name: 'Sinatra', position: 2, icon: 'sinatra.svg' },
+    { name: 'Rails', position: 3, icon: 'rails.svg' },
+    { name: 'Javascript', position: 4, icon: 'javascript.svg' },
+    { name: 'HTML5', position: 5, icon: 'html5.svg' },
+    { name: 'Bootstrap', position: 6, icon: 'bootstrap.svg' },
+    { name: 'Bulma', position: 7, icon: 'bulma.svg' },
+    { name: 'Tailwind', position: 8, icon: 'tailwind.svg' },
+    { name: 'Python', position: 9, icon: 'python.svg' },
+    { name: 'Flask', position: 10, icon: 'flask.svg' },
+    { name: 'Django', position: 11, icon: 'django.svg' },
+    { name: 'Linux', position: 12, icon: 'linux.svg' },
+    { name: 'Mysql', position: 13, icon: 'mysql.svg' },
+    { name: 'Qt', position: 14, icon: 'qt.svg' },
+    { name: 'Selenium', position: 15, icon: 'selenium.svg' },
+    { name: 'Sqlite', position: 16, icon: 'sqlite.svg' },
+    { name: 'Tcl/Tk', position: 17, icon: 'tcl-tk.svg' },
+    { name: 'Terraform', position: 18, icon: 'terraform.svg' },
+    { name: 'Ansible', position: 19, icon: 'ansible.svg' }
+  ]
+
+  technologies.each do |tech|
+    tech_record = Technology.find_or_create_by(technology_name: tech[:name]) do |technology|
+      technology.technology_position = tech[:position]
+    end
+    tech_record.technology_icon.attach(
+      io: File.open("app/assets/images/technologies/#{tech[:icon]}"),
+      filename: "#{tech[:icon]}",
+      content_type: 'image/svg+xml'
+    )
+  end
 end
 
 ActiveRecord::Base.transaction do
   5.times do |i|
     Project.find_or_create_by(profile_id: 1, project_name: "Project #{i}") do |project|
       project.project_status = :enabled
+      project.project_position = i + 1
       project.project_description = Faker::Lorem.paragraph_by_chars(number: 512)
       project.project_demo_url = "https://project#{i}.com"
       project.project_repository_url = "https://github.com/project#{i}"

@@ -6,19 +6,21 @@
   <%= link_to('Nuevo proyecto', new_administration_project_path, class: 'btn btn-primary mb-3') %>
 </div>
 
-<div class="table-responsive">
+<div class="table-responsive" data-controller="sortable" data-sortable-reorder-url-value="<%= reorder_administration_projects_path %>">
   <table class="table table-hover table-bordered">
     <thead>
       <tr class="text-center">
+        <th class="col-1">Orden</th>
         <th class="col-1">ID</th>
         <th class="col">Nombre</th>
         <th class="col-1">Estado</th>
         <th class="col-4">Acciones</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody data-sortable-target="tableBody">
       <% @projects.each do |project| %>
-        <tr class="text-center align-middle">
+        <tr class="text-center align-middle" data-id="<%= project.id %>">
+          <td><i class="bi bi-arrow-down-up handle"></i></td>
           <td><%= project.id %></td>
           <td><%= project.project_name %></td>
           <td><span class="badge text-bg-<%= project.enabled? ? 'success' : 'secondary' %>"><%= project.project_status_humanized %></span></td>
@@ -26,6 +28,7 @@
             <%= link_to('Editar', edit_administration_project_path(project), class: 'btn btn-primary mb-md-0 mb-2') %>
             <%= link_to("#{project.enabled? ? 'Desactivar' : 'Activar'}", toggle_status_administration_project_path(project), class: 'btn btn-success mb-md-0 mb-2', data: { turbo_method: :patch }) %>
             <%= link_to('Eliminar', administration_project_path(project), class: 'btn btn-danger mb-md-0', data: { turbo_method: :delete, turbo_confirm: '¿Realmente desea eliminar este proyecto?' }) %>
+          </td>
         </tr>
       <% end %>
     </tbody>

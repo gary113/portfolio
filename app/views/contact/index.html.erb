@@ -11,17 +11,20 @@
     <div class="col-12 <%= "#{contact_info_present ? 'col-md-8' : '' }" %> ">
       <%= form_with(model: @message, url: send_message_contact_index_path, method: :post) do |form| %>
         <div class="mb-3">
-          <%= form.email_field(:message_email, class: "form-control", placeholder: "Correo", required: true) %>
+          <%= form.label(:message_email, "Correo", class: "form-label") %>
+          <%= form.email_field(:message_email, class: "form-control", placeholder: "Su correo electrónico", required: true) %>
         </div>
         <div class="mb-3">
-          <%= form.text_field(:message_subject, class: "form-control", placeholder: "Asunto", required: true) %>
+          <%= form.label(:message_subject, "Asunto", class: "form-label") %>
+          <%= form.text_field(:message_subject, class: "form-control", placeholder: "Asunto del mensaje", required: true) %>
         </div>
         <div class="mb-3">
+          <%= form.label(:message_content, "Mensaje", class: "form-label") %>
           <%= form.text_area(:message_content, class: "form-control", rows: 6, placeholder: "Escriba su mensaje", required: true) %>
         </div>
         <div class="mb-3">
           <%= form.label(:humanizer_answer, @message.humanizer_question) %>
-          <%= form.text_field(:humanizer_answer, class: "form-control", required: true) %>
+          <%= form.text_field(:humanizer_answer, class: "form-control", placeholder: "Compruebe que es humano", required: true) %>
           <%= form.hidden_field(:humanizer_question_id) %>
         </div>
         <%= form.submit("Enviar", class: "btn btn-primary") %>

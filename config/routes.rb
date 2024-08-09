@@ -20,12 +20,16 @@ Rails.application.routes.draw do
     end
     resources(:projects, only: %i[index new create edit update show destroy]) do
       patch(:toggle_status, on: :member)
+      patch(:reorder, on: :collection)
     end
     resources(:messages, only: %i[index show destroy])
     resources(:social_networks, only: %i[index new create edit update destroy]) do
       patch(:toggle_status, on: :member)
+      patch(:reorder, on: :collection)
     end
-    resources(:technologies, only: %i[index new create edit update destroy])
+    resources(:technologies, only: %i[index new create edit update destroy]) do
+      patch(:reorder, on: :collection)
+    end
 
     root('user_sessions#new')
   end

@@ -21,6 +21,11 @@
     <%= form.text_area(:project_description, class: "form-control", rows: 6, style: "min-height: 100px;") %>
   </div>
 
+  <div class="mb-3" data-controller="tom-select">
+    <%= form.label(:technology_ids, "Tecnologías", class: "form-label") %>
+    <%= form.select(:technology_ids, options_from_collection_for_select(Technology.all, :id, :technology_name, selected: @project.technologies.ids), {}, multiple: true, autocomplete: "off", class: "form-select", data: { tom_select_target: "select" }) %>
+  </div>
+
   <div class="mb-3">
     <%= form.label(:project_demo_url, "URL de demostración", class: "form-label") %>
     <%= form.url_field(:project_demo_url, class: "form-control") %>

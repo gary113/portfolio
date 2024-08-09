@@ -83,6 +83,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_03_181824) do
 
   create_table "projects", force: :cascade do |t|
     t.integer "project_status", limit: 1, default: 0, null: false
+    t.integer "project_position", null: false
     t.string "project_name", null: false
     t.string "project_description"
     t.string "project_demo_url"
@@ -97,6 +98,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_03_181824) do
     t.string "social_network_name", null: false
     t.string "social_network_url", null: false
     t.integer "social_network_status", limit: 1, default: 0, null: false
+    t.integer "social_network_position", null: false
     t.integer "profile_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -105,6 +107,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_03_181824) do
 
   create_table "technologies", force: :cascade do |t|
     t.string "technology_name", null: false
+    t.integer "technology_position", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

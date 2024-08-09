@@ -4,18 +4,20 @@
   <%= link_to('Nueva tecnología', new_administration_technology_path, class: 'btn btn-primary mb-3') %>
 </div>
 
-<div class="table-responsive">
+<div class="table-responsive" data-controller="sortable" data-sortable-reorder-url-value="<%= reorder_administration_technologies_path %>">
   <table class="table table-hover table-bordered">
     <thead>
       <tr class="text-center">
+        <th class="col-1">Orden</th>
         <th class="col-1">ID</th>
         <th class="col">Nombre</th>
         <th class="col-4">Acciones</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody data-sortable-target="tableBody">
       <% @technologies.each do |technology| %>
-        <tr class="text-center align-middle">
+        <tr class="text-center align-middle" data-id="<%= technology.id %>">
+          <td><i class="bi bi-arrow-down-up handle"></i></td>
           <td><%= technology.id %></td>
           <td><%= technology.technology_name %></td>
           <td>

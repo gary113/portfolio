@@ -1,4 +1,6 @@
 class Administration::TechnologiesController < AdministrationController
+  include Sortable
+
   def index
     @technologies = Technology.all
   end
@@ -57,6 +59,12 @@ class Administration::TechnologiesController < AdministrationController
 
     flash[:notice] = 'Tecnología actualizada correctamente'
     redirect_to(administration_technologies_path)
+  end
+
+  def reorder
+    reorder_items(Technology)
+
+    head(:ok)
   end
 
   private

@@ -14,4 +14,10 @@ import HomeController from "./home_controller"
 application.register("home", HomeController)
 
 import ImageModalController from "./image_modal_controller"
-application.register("image_modal", ImageModalController)
+application.register("image-modal", ImageModalController)
+
+import SortableController from "./sortable_controller"
+application.register("sortable", SortableController)
+
+import TomSelectController from "./tom_select_controller"
+application.register("tom-select", TomSelectController)

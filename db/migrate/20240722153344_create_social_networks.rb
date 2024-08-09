@@ -4,6 +4,7 @@ class CreateSocialNetworks < ActiveRecord::Migration[7.1]
       t.string :social_network_name, null: false
       t.string :social_network_url, null: false
       t.integer :social_network_status, null: false, default: 0, limit: 1
+      t.integer :social_network_position, null: false
 
       t.references :profile, foreign_key: true
 

@@ -1,4 +1,4 @@
-<div data-controller="image_modal">
+<div data-controller="image-modal">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-auto my-3">
@@ -12,7 +12,7 @@
             <div class="postcard__img_link">
               <% if project.project_image.attached? %>
                 <% project_image = url_for(project.project_image) %>
-                <img src="<%= project_image %>" class="postcard__img image-link" data-bs-toggle="modal" data-bs-target="#projectImageModal" data-action="click->image_modal#load_image" data-project-image-url="<%= project_image %>">
+                <img src="<%= project_image %>" class="postcard__img image-link" alt="Imagen del Proyecto" title="Ampliar imagen" data-bs-toggle="modal" data-bs-target="#projectImageModal" data-action="click->image-modal#load_image" data-project-image-url="<%= project_image %>">
               <% else %>
                 <img src="<%= asset_path('placeholders/project_image_placeholder.png') %>" class="postcard__img">
               <% end %>
@@ -59,7 +59,7 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <a href="" data-image_modal-target="imageLink" target="_blank"><img src="" class="img-fluid" alt="Imagen del Proyecto" data-image_modal-target="imageContainer"></a>
+          <a href="" data-image-modal-target="imageLink" target="_blank"><img src="" class="img-fluid" alt="Imagen del Proyecto" data-image-modal-target="imageContainer"></a>
         </div>
       </div>
     </div>

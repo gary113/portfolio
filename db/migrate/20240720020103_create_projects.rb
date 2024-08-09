@@ -2,6 +2,7 @@ class CreateProjects < ActiveRecord::Migration[7.1]
   def change
     create_table :projects do |t|
       t.integer :project_status, null: false, default: 0, limit: 1
+      t.integer :project_position, null: false
       t.string :project_name, null: false
       t.string :project_description
       t.string :project_demo_url

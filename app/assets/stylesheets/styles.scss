@@ -31,6 +31,10 @@ body {
   cursor: pointer;
 }
 
+.handle {
+  cursor: grab;
+}
+
 #image-modal {
   max-width: 100%;
   max-height: 100%;
@@ -53,8 +57,8 @@ body {
 }
 
 .arrow-left:hover {
-  transform: translateX(-10px);
-  padding-right: 10px;
+  transform: translateX(-5px);
+  padding-right: 5px;
 }
 
 .arrow-right {
@@ -63,8 +67,8 @@ body {
 }
 
 .arrow-right:hover {
-  transform: translateX(+10px);
-  padding-left: 10px;
+  transform: translateX(5px);
+  padding-left: 5px;
 }
 
 @media (max-width: 750px) {

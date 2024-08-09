@@ -6,6 +6,8 @@ class Project < ApplicationRecord
 
   enum(project_status: { disabled: 0, enabled: 1 })
 
+  default_scope { order(project_position: :asc) }
+
   def project_status_humanized
     I18n.t("activerecord.attributes.project.project_statuses.#{project_status}")
   end

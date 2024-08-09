@@ -1,4 +1,6 @@
 class Administration::ProjectsController < AdministrationController
+  include Sortable
+
   def index
     @projects = Profile.current_profile.projects.order(project_status: :desc, id: :desc)
   end
@@ -52,6 +54,12 @@ class Administration::ProjectsController < AdministrationController
     redirect_to(administration_projects_path)
   end
 
+  def reorder
+    reorder_items(Project)
+
+    head(:ok)
+  end
+
   private
 
   def project_params
@@ -59,6 +67,7 @@ class Administration::ProjectsController < AdministrationController
                                     :project_name,
                                     :project_description,
                                     :project_demo_url,
-                                    :project_repository_url)
+                                    :project_repository_url,
+                                    technology_ids: [])
   end
 end

@@ -1,4 +1,6 @@
 class Administration::SocialNetworksController < AdministrationController
+  include Sortable
+
   def index
     @social_networks = SocialNetwork.all
   end
@@ -57,6 +59,12 @@ class Administration::SocialNetworksController < AdministrationController
 
     flash[:notice] = 'Red social actualizada correctamente'
     redirect_to(administration_social_networks_path)
+  end
+
+  def reorder
+    reorder_items(SocialNetwork)
+
+    head(:ok)
   end
 
   private

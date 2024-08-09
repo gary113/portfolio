@@ -10,6 +10,6 @@ class AdministrationController < ActionController::Base
   end
 
   def identify_user
-    redirect_to(new_user_session_path, alert: 'Inicia sesión') unless current_user
+    redirect_to(new_administration_user_session_path, alert: 'Inicia sesión') unless current_user
   end
 end

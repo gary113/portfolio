@@ -1,4 +1,4 @@
-name: Create Draft Release and Push Docker Image
+name: Build docker image, push and create draft release
 
 on:
   push:
@@ -6,19 +6,22 @@ on:
       - main
 
 jobs:
-  build-and-release:
+  build-and-push-docker-image:
     runs-on: ubuntu-latest
+
+    outputs:
+      new_tag: ${{ steps.bump_version.outputs.NEW_TAG }}
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
     - name: Get repository name
+      id: get_repo_name
       run: |
         REPO_NAME=${GITHUB_REPOSITORY#*/}
         echo "Repository name: $REPO_NAME"
-        echo "::set-output name=repo_name::$REPO_NAME"
-      id: get_repo_name
+        echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
 
     - name: Get the current version tag
       id: get_version
@@ -31,12 +34,12 @@ jobs:
           TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
         fi
         echo "Current version: $TAG"
-        echo "::set-output name=current_tag::$TAG"
+        echo "CURRENT_TAG=$TAG" >> $GITHUB_ENV
 
     - name: Bump version
       id: bump_version
       run: |
-        VERSION=${{ steps.get_version.outputs.current_tag }}
+        VERSION=${{ env.CURRENT_TAG }}
         if [[ "$VERSION" == "" ]]; then
           VERSION="v0"
         fi
@@ -44,7 +47,8 @@ jobs:
         NEW_VERSION_NUMBER=$((VERSION_NUMBER + 1))
         NEW_TAG="v$NEW_VERSION_NUMBER"
         echo "New version: $NEW_TAG"
-        echo "::set-output name=new_tag::$NEW_TAG"
+        echo "NEW_TAG=$NEW_TAG" >> $GITHUB_ENV
+        echo "NEW_TAG=$NEW_TAG" >> $GITHUB_OUTPUT
 
     - name: Log in to Docker Hub
       uses: docker/login-action@v2
@@ -57,15 +61,20 @@ jobs:
       with:
         context: .
         tags: |
-          ${{ secrets.DOCKER_USERNAME }}/${{ steps.get_repo_name.outputs.repo_name }}:latest
-          ${{ secrets.DOCKER_USERNAME }}/${{ steps.get_repo_name.outputs.repo_name }}:${{ steps.bump_version.outputs.new_tag }}
+          ${{ secrets.DOCKER_USERNAME }}/${{ env.REPO_NAME }}:latest
+          ${{ secrets.DOCKER_USERNAME }}/${{ env.REPO_NAME }}:${{ env.NEW_TAG }}
         push: true
 
+  create-draft-release:
+    runs-on: ubuntu-latest
+    needs: build-and-push-docker-image
+
+    steps:
     - name: Create Draft Release
       uses: actions/create-release@v1
       with:
-        tag_name: ${{ steps.bump_version.outputs.new_tag }}
-        release_name: "Release ${{ steps.bump_version.outputs.new_tag }}"
+        tag_name: ${{ needs.build-and-push-docker-image.outputs.new_tag }}
+        release_name: "Release ${{ needs.build-and-push-docker-image.outputs.new_tag }}"
         draft: true
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}

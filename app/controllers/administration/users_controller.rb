@@ -19,6 +19,22 @@ class Administration::UsersController < AdministrationController
     end
   end
 
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:id])
+
+    if @user.update(user_params)
+      flash[:notice] = 'Usuario actualizado correctamente'
+      redirect_to(administration_users_path)
+    else
+      flash[:alert] = @user.errors.full_messages.join('\n')
+      render(:edit, status: :unprocessable_entity)
+    end
+  end
+
   def destroy
     @user = User.find(params[:id])
     @user.destroy

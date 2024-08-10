@@ -19,6 +19,7 @@
           <td><%= user.id %></td>
           <td><%= user.user_name %></td>
           <td>
+            <%= link_to('Editar', edit_administration_user_path(user), class: 'btn btn-primary mb-md-0 mb-2') %>
             <% if current_user != user %>
               <%= link_to('Eliminar', administration_user_path(user), class: 'btn btn-danger', data: { turbo_method: :delete, turbo_confirm: '¿Realmente desea eliminar este usuario?' }) %>
             <% end %>

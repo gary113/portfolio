@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   end
 
   namespace(:administration) do
-    resources(:users, only: %i[index new create destroy])
+    resources(:users, only: %i[index new create edit update destroy])
     resources(:user_sessions, only: %i[new create destroy])
     resources(:profiles, only: %i[index new create edit update show destroy]) do
       patch(:activate, on: :member)

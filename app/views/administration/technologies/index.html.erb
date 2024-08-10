@@ -10,6 +10,7 @@
       <tr class="text-center">
         <th class="col-1">Orden</th>
         <th class="col-1">ID</th>
+        <th class="col-1">Ícono</th>
         <th class="col">Nombre</th>
         <th class="col-4">Acciones</th>
       </tr>
@@ -19,6 +20,7 @@
         <tr class="text-center align-middle" data-id="<%= technology.id %>">
           <td><i class="bi bi-arrow-down-up handle"></i></td>
           <td><%= technology.id %></td>
+          <td><%= image_tag(url_for(technology.technology_icon), alt: technology.technology_name, style: 'width: 2rem; height: 2rem;') %></td>
           <td><%= technology.technology_name %></td>
           <td>
             <%= link_to('Editar', edit_administration_technology_path(technology), class: 'btn btn-primary mb-md-0 mb-2') %>

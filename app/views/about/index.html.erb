@@ -10,7 +10,7 @@
       <%= @profile.profile_about_text %>
     </div>
     <div class="col-12 col-xl-4">
-      <img class="img-fluid" src="<%= @profile.profile_picture.attached? ? url_for(@profile.profile_picture) : asset_path('placeholders/profile_picture_placeholder.png') %>">
+      <img class="img-fluid rounded" src="<%= @profile.profile_picture.attached? ? url_for(@profile.profile_picture) : asset_path('placeholders/profile_picture_placeholder.png') %>">
     </div>
   </div>
 </div>

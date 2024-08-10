@@ -6,7 +6,7 @@ class Administration::TechnologiesController < AdministrationController
   end
 
   def new
-    @technologies = Technology.new
+    @technology = Technology.new
   end
 
   def create

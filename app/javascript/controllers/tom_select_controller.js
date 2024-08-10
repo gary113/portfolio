@@ -20,8 +20,7 @@ export default class extends Controller {
           },
           clear_button: {
             'title': 'Limpiar'
-          },
-          drag_drop: {}
+          }
         }
       });
 

@@ -24,11 +24,16 @@ jobs:
       id: get_version
       run: |
         git fetch --tags
-        TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
+        TAG=$(git tag --sort=-v:refname | head -n 1)
+        if [ -z "$TAG" ]; then
+          TAG="v0"
+        else
+          TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
+        fi
         echo "Current version: $TAG"
         echo "::set-output name=current_tag::$TAG"
 
-    - name: Bump version (if necessary)
+    - name: Bump version
       id: bump_version
       run: |
         VERSION=${{ steps.get_version.outputs.current_tag }}

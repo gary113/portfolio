@@ -8,11 +8,10 @@ on:
 jobs:
   build-and-push-docker-image:
     runs-on: ubuntu-latest
-
     outputs:
       new_tag: ${{ steps.bump_version.outputs.NEW_TAG }}
-
     steps:
+
     - name: Checkout code
       uses: actions/checkout@v2
 
@@ -40,9 +39,6 @@ jobs:
       id: bump_version
       run: |
         VERSION=${{ env.CURRENT_TAG }}
-        if [[ "$VERSION" == "" ]]; then
-          VERSION="v0"
-        fi
         VERSION_NUMBER="${VERSION#v}"
         NEW_VERSION_NUMBER=$((VERSION_NUMBER + 1))
         NEW_TAG="v$NEW_VERSION_NUMBER"
@@ -70,11 +66,10 @@ jobs:
     needs: build-and-push-docker-image
 
     steps:
-    - name: Create Draft Release
+    - name: Create Release
       uses: actions/create-release@v1
       with:
         tag_name: ${{ needs.build-and-push-docker-image.outputs.new_tag }}
         release_name: "Release ${{ needs.build-and-push-docker-image.outputs.new_tag }}"
-        draft: true
       env:
         GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}

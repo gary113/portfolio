@@ -72,3 +72,5 @@ gem 'faker', '~> 3.4'
 gem 'humanizer', '~> 2.7'
 
 gem 'ruby-vips', '~> 2.2'
+
+gem "pg", "~> 1.5"

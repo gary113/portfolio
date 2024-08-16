@@ -19,7 +19,7 @@ FROM base as build
 
 # Install packages needed to build gems
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential curl git libvips pkg-config unzip && \
+    apt-get install --no-install-recommends -y build-essential curl git libvips pkg-config unzip libpq-dev && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 ENV BUN_INSTALL=/usr/local/bun

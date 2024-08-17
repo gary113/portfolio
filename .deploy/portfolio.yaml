@@ -101,8 +101,6 @@ spec:
               key: postgres-port
         - name: RAILS_LOG_LEVEL
           value: info
-        - name: HOSTNAME
-          value: localhost
         volumeMounts:
         - name: portfolio-storage
           mountPath: /rails/storage

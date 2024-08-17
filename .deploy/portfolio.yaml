@@ -84,6 +84,11 @@ spec:
             secretKeyRef:
               name: portfolio-secret
               key: postgres-user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: portfolio-secret
+              key: postgres-password
         - name: POSTGRES_HOST
           valueFrom:
             secretKeyRef:
@@ -96,6 +101,8 @@ spec:
               key: postgres-port
         - name: RAILS_LOG_LEVEL
           value: info
+        - name: HOSTNAME
+          value: localhost
         volumeMounts:
         - name: portfolio-storage
           mountPath: /rails/storage

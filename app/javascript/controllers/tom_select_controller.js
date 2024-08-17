@@ -9,7 +9,6 @@ export default class extends Controller {
     this.selectTargets.forEach((select) => {
       new TomSelect(select, {
         allowEmptyOption: true,
-        create: true,
         sortField: {
           field: "text",
           direction: "asc"

@@ -1,5 +1,5 @@
 class AdministrationController < ActionController::Base
-  layout('users')
+  layout('administration')
   helper_method(:current_user)
   before_action(:identify_user)
 

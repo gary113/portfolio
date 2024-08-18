@@ -45,7 +45,7 @@ jobs:
         key: ${{ secrets.K3D_SSH_KEY }}
         port: ${{ secrets.K3D_SSH_PORT }}
         source: .deploy/${{ env.REPO_NAME }}.yaml
-        target: /tmp/.${{ env.REPO_NAME }}
+        target: /tmp
 
     - name: Deploy with kubectl and remove template
       uses: appleboy/ssh-action@v1.0.3
@@ -55,4 +55,5 @@ jobs:
         key: ${{ secrets.K3D_SSH_KEY }}
         port: ${{ secrets.K3D_SSH_PORT }}
         script: |
-          kubectl apply -f /tmp/.${{ env.REPO_NAME }}/${{ env.REPO_NAME }}.yaml
+          kubectl apply -f /tmp/.deploy/${{ env.REPO_NAME }}.yaml
+          rm -r /tmp/.deploy/${{ env.REPO_NAME }}.yaml

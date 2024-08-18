@@ -27,8 +27,6 @@ jobs:
         TAG=$(git tag --sort=-v:refname | head -n 1)
         if [ -z "$TAG" ]; then
           TAG="v0.0.1"
-        else
-          TAG=$(git describe --tags $(git rev-list --tags --max-count=1))
         fi
         echo "Current version: $TAG"
         echo "CURRENT_TAG=$TAG" >> $GITHUB_ENV
@@ -64,10 +62,17 @@ jobs:
     needs: build-and-push-docker-image
 
     steps:
+    - name: Delete old draft release if exists
+      uses: liudonghua123/delete-release-action@v1
+      with:
+        release_name: ${{ needs.build-and-push-docker-image.outputs.new_tag }}
+        suppress_errors: true
+
     - name: Create Release
       uses: actions/create-release@v1
       with:
         tag_name: ${{ needs.build-and-push-docker-image.outputs.new_tag }}
         release_name: "Release ${{ needs.build-and-push-docker-image.outputs.new_tag }}"
+        draft: true
       env:
         GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}

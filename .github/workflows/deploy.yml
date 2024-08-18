@@ -1,13 +1,9 @@
-name: Deploy to cluster after build
+name: Deploy to cluster
 
 on:
-  workflow_dispatch:
-    inputs:
-      tag:
-        description: 'Tag to deply'
-        required: true
-        default: 'v0.0.1'
-        type: string
+  push:
+    tags:
+      - 'v0.0.*'
 
 jobs:
   deploy:
@@ -24,11 +20,14 @@ jobs:
         echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
 
     - name: Get the current version tag
-      run: echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+      run: |
+         TAG="${GITHUB_REF#refs/tags/}"
+         echo "Current version: $TAG"
+         echo "CURRENT_TAG=$TAG" >> $GITHUB_ENV
 
     - name: Inject secrets
       run: |
-        sed -i "s/TAG_VALUE/${{ env.TAG }}/g" .deploy/${{ env.REPO_NAME }}.yaml
+        sed -i "s/TAG_VALUE/${{ env.CURRENT_TAG }}/g" .deploy/${{ env.REPO_NAME }}.yaml
         sed -i "s/SECRET_KEY_BASE_VALUE/${{ secrets.SECRET_KEY_BASE }}/g" .deploy/${{ env.REPO_NAME }}.yaml
         sed -i "s/RAILS_MASTER_KEY_VALUE/${{ secrets.RAILS_MASTER_KEY }}/g" .deploy/${{ env.REPO_NAME }}.yaml
         sed -i "s/POSTGRES_DB_VALUE/${{ secrets.POSTGRES_DB }}/g" .deploy/${{ env.REPO_NAME }}.yaml

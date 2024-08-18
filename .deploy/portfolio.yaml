@@ -48,7 +48,7 @@ spec:
     spec:
       containers:
       - name: portfolio
-        image: gary113/portfolio:TAG_VALUE
+        image: DOCKER_IMAGE_VALUE:TAG_VALUE
         ports:
         - containerPort: 3000
         env:

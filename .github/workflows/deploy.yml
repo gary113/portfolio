@@ -5,6 +5,9 @@ on:
     tags:
       - 'v0.0.*'
 
+env:
+  DOCKER_IMAGE: ghcr.io/${{ github.repository }}
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -27,6 +30,7 @@ jobs:
 
     - name: Inject secrets to template
       run: |
+        sed -i "s/DOCKER_IMAGE_VALUE/${{ env.DOCKER_IMAGE }}/g" .deploy/${{ env.REPO_NAME }}.yaml
         sed -i "s/TAG_VALUE/${{ env.CURRENT_TAG }}/g" .deploy/${{ env.REPO_NAME }}.yaml
         sed -i "s/SECRET_KEY_BASE_VALUE/${{ secrets.SECRET_KEY_BASE }}/g" .deploy/${{ env.REPO_NAME }}.yaml
         sed -i "s/RAILS_MASTER_KEY_VALUE/${{ secrets.RAILS_MASTER_KEY }}/g" .deploy/${{ env.REPO_NAME }}.yaml

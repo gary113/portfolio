@@ -32,4 +32,5 @@ jobs:
       with:
         context: .
         tags: ${{ github.repository }}:dev
+        github-token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
         push: true

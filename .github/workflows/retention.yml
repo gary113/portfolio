@@ -1,0 +1,34 @@
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 5 * * *"
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    name: Delete old images
+    steps:
+      - name: Get repository name
+        id: get_repo_name
+        run: |
+          REPO_NAME=${GITHUB_REPOSITORY#*/}
+          echo "Repository name: $REPO_NAME"
+          echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
+
+      - name: Delete old images
+        uses: snok/container-retention-policy@v3.0.0
+        with:
+          account: ${{ github.repository_owner }}
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          image-names: ${{ env.REPO_NAME }}
+          image-tags: "v0.0.*"
+          keep-n-most-recent: 3
+          cut-off: "1d"
+
+      - name: Delete old releases
+        uses: Nats-ji/delete-old-releases@v1
+        with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          keep-count: 3
+          keep-old-minor-releases: false
+          remove-tags: true

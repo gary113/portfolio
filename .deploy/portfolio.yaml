@@ -4,34 +4,6 @@ metadata:
   name: web
 ---
 apiVersion: v1
-kind: Secret
-metadata:
-  name: portfolio-secret
-  namespace: web
-type: Opaque
-data:
-  secret-key-base: SECRET_KEY_BASE_SECRET
-  rails-master-key: RAILS_MASTER_KEY_SECRET
-  postgres-db: POSTGRES_DB_SECRET
-  postgres-user: POSTGRES_USER_SECRET
-  postgres-password: POSTGRES_PASSWORD_SECRET
-  postgres-host: POSTGRES_HOST_SECRET
-  postgres-port: POSTGRES_PORT_SECRET
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: portfolio-pv
-  namespace: web
-spec:
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: /data/portfolio
----
-apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: portfolio-pvc
@@ -43,6 +15,22 @@ spec:
     requests:
       storage: 1Gi
 ---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: portfolio-secret
+  namespace: web
+type: Opaque
+data:
+  secret-key-base: SECRET_KEY_BASE_VALUE
+  rails-master-key: RAILS_MASTER_KEY_VALUE
+  postgres-db: POSTGRES_DB_VALUE
+  postgres-user: POSTGRES_USER_VALUE
+  postgres-password: POSTGRES_PASSWORD_VALUE
+  postgres-host: POSTGRES_HOST_VALUE
+  postgres-port: POSTGRES_PORT_VALUE
+---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -60,7 +48,7 @@ spec:
     spec:
       containers:
       - name: portfolio
-        image: gary113/portfolio:latest
+        image: gary113/portfolio:TAG_VALUE
         ports:
         - containerPort: 3000
         env:
@@ -129,7 +117,7 @@ metadata:
   namespace: web
 spec:
   rules:
-  - host: portfolio.local
+  - host: HOSTNAME_VALUE
     http:
       paths:
       - path: /

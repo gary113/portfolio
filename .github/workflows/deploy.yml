@@ -1,0 +1,48 @@
+name: Deploy to cluster after build
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to deply'
+        required: true
+        default: 'v0.0.1'
+        type: string
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Get repository name
+      run: |
+        REPO_NAME=${GITHUB_REPOSITORY#*/}
+        echo "Repository name: $REPO_NAME"
+        echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
+
+    - name: Get the current version tag
+      run: echo "TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+    - name: Inject secrets
+      run: |
+        sed -i "s/TAG_VALUE/${{ env.TAG }}/g" .deploy/${{ env.REPO_NAME }}.yaml
+        sed -i "s/SECRET_KEY_BASE_VALUE/${{ secrets.SECRET_KEY_BASE }}/g" .deploy/${{ env.REPO_NAME }}.yaml
+        sed -i "s/RAILS_MASTER_KEY_VALUE/${{ secrets.RAILS_MASTER_KEY }}/g" .deploy/${{ env.REPO_NAME }}.yaml
+        sed -i "s/POSTGRES_DB_VALUE/${{ secrets.POSTGRES_DB }}/g" .deploy/${{ env.REPO_NAME }}.yaml
+        sed -i "s/POSTGRES_USER_VALUE/${{ secrets.POSTGRES_USER }}/g" .deploy/${{ env.REPO_NAME }}.yaml
+        sed -i "s/POSTGRES_PASSWORD_VALUE/${{ secrets.POSTGRES_PASSWORD }}/g" .deploy/${{ env.REPO_NAME }}.yaml
+        sed -i "s/POSTGRES_HOST_VALUE/${{ secrets.POSTGRES_HOST }}/g" .deploy/${{ env.REPO_NAME }}.yaml
+        sed -i "s/POSTGRES_PORT_VALUE/${{ secrets.POSTGRES_PORT }}/g" .deploy/${{ env.REPO_NAME }}.yaml
+        sed -i "s/HOSTNAME_VALUE/${{ secrets.HOSTNAME }}/g" .deploy/${{ env.REPO_NAME }}.yaml
+
+    - name: executing remote ssh commands using ssh key
+      uses: appleboy/ssh-action@v1.0.3
+      with:
+        host: ${{ secrets.K3D_SSH_HOST }}
+        username: ${{ secrets.K3D_SSH_USERNAME }}
+        key: ${{ secrets.K3D_SSH_KEY }}
+        port: ${{ secrets.K3D_SSH_PORT }}
+        script: kubectl apply -f .deploy/${{ env.REPO_NAME }}.yaml

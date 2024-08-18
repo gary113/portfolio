@@ -34,6 +34,7 @@ jobs:
         echo "CURRENT_TAG=$TAG" >> $GITHUB_ENV
 
     - name: Bump version
+      id: bump_version
       run: |
         VERSION=${{ env.CURRENT_TAG }}
         VERSION_NUMBER="${VERSION#v0.0.}"

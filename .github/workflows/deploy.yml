@@ -56,4 +56,3 @@ jobs:
         port: ${{ secrets.K3D_SSH_PORT }}
         script: |
           kubectl apply -f /tmp/.${{ env.REPO_NAME }}/${{ env.REPO_NAME }}.yaml
-          rm -r /tmp/.${{ env.REPO_NAME }}

@@ -44,4 +44,4 @@ jobs:
         username: ${{ secrets.K3D_SSH_USERNAME }}
         key: ${{ secrets.K3D_SSH_KEY }}
         port: ${{ secrets.K3D_SSH_PORT }}
-        script: kubectl apply -f .deploy/${{ env.REPO_NAME }}.yaml
+        script: bash -ic "kubectl apply -f .deploy/${{ env.REPO_NAME }}.yaml"

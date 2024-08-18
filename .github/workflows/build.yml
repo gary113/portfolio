@@ -67,6 +67,8 @@ jobs:
       with:
         release_name: ${{ needs.build-and-push-docker-image.outputs.new_tag }}
         suppress_errors: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
 
     - name: Create Release
       uses: actions/create-release@v1

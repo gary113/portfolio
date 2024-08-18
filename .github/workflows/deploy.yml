@@ -25,7 +25,7 @@ jobs:
          echo "Current version: $TAG"
          echo "CURRENT_TAG=$TAG" >> $GITHUB_ENV
 
-    - name: Inject secrets
+    - name: Inject secrets to template
       run: |
         sed -i "s/TAG_VALUE/${{ env.CURRENT_TAG }}/g" .deploy/${{ env.REPO_NAME }}.yaml
         sed -i "s/SECRET_KEY_BASE_VALUE/${{ secrets.SECRET_KEY_BASE }}/g" .deploy/${{ env.REPO_NAME }}.yaml
@@ -37,11 +37,23 @@ jobs:
         sed -i "s/POSTGRES_PORT_VALUE/${{ secrets.POSTGRES_PORT }}/g" .deploy/${{ env.REPO_NAME }}.yaml
         sed -i "s/HOSTNAME_VALUE/${{ secrets.HOSTNAME }}/g" .deploy/${{ env.REPO_NAME }}.yaml
 
-    - name: executing remote ssh commands using ssh key
+    - name: Transfer template to remote server
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ secrets.K3D_SSH_HOST }}
+        username: ${{ secrets.K3D_SSH_USERNAME }}
+        key: ${{ secrets.K3D_SSH_KEY }}
+        port: ${{ secrets.K3D_SSH_PORT }}
+        source: .deploy/${{ env.REPO_NAME }}.yaml
+        target: /tmp/${{ env.REPO_NAME }}.yaml
+
+    - name: Deploy with kubectl and remove template
       uses: appleboy/ssh-action@v1.0.3
       with:
         host: ${{ secrets.K3D_SSH_HOST }}
         username: ${{ secrets.K3D_SSH_USERNAME }}
         key: ${{ secrets.K3D_SSH_KEY }}
         port: ${{ secrets.K3D_SSH_PORT }}
-        script: bash -ic "kubectl apply -f .deploy/${{ env.REPO_NAME }}.yaml"
+        script: |
+          kubectl apply -f /tmp/${{ env.REPO_NAME }}.yaml
+          rm /tmp/${{ env.REPO_NAME }}.yaml
